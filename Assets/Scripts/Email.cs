@@ -8,12 +8,15 @@ public class Email
     public Sprite ProfilePicture { get; private set; }
     public bool Scam { get; private set; }
 
-    public Email(string title, string body, string sender, Sprite profilePicture, bool scam)
+    public bool Read { get; set; }
+
+    public Email(string title, string body, string sender, Sprite profilePicture, bool scam, bool read)
     {
         Title = title;
         Body = body;
         Sender = sender;
         ProfilePicture = profilePicture;
         Scam = scam;
+        Read = read;
     }
 }
