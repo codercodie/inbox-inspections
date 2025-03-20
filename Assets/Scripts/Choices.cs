@@ -45,13 +45,7 @@ public class Choices : MonoBehaviour
             incorrectChoices++;
             incorrect.text = "Incorrect: " + incorrectChoices;
         }
-
-        Invoke(nameof(LoadNextEmail), 0.25f);
     }
 
-    private void LoadNextEmail()
-    {
-        emailUIManager.DisplayRandomEmail();
-    }
 
 }
