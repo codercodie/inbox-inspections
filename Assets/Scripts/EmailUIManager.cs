@@ -20,13 +20,12 @@ public class EmailUIManager : MonoBehaviour
     public List<TextMeshProUGUI> senderTexts, subjectTexts;
     public List<Image> profileImages;
     public RectTransform emailListPanel;
-    float emailHeight = 82.91f;
+    float emailHeight = 82f;
 
     private void Start()
     {
         UnHighlightAllEmails();
         DisplayEmailList();
-        ShowFirstEmail();
     }
 
     public void DisplayEmailList()
@@ -42,27 +41,11 @@ public class EmailUIManager : MonoBehaviour
         }
     }
 
-    public void ShowFirstEmail()
-    {
-        DisplayEmail(0);
-    }
-
     public void ChangeEmail()
     {
-       choices.SetButtons(true);
-        currentEmailButton.gameObject.SetActive(false);
-        Vector2 size = emailListPanel.sizeDelta;
-        size.y -= emailHeight;
-        emailListPanel.sizeDelta = size;
         GameObject clickedObject = EventSystem.current.currentSelectedGameObject;
-        if (clickedObject == null)
-        {
-            Debug.LogError("No UI object was clicked!");
-            return;
-        }
         string objectName = clickedObject.name;
         Debug.Log("Game Object Clicked: " + objectName);
-        currentEmailButton = clickedObject.GetComponent<Button>();
         char lastCharacter = objectName[objectName.Length - 1];
         int number = 0;
         if (char.IsDigit(lastCharacter))
@@ -75,7 +58,41 @@ public class EmailUIManager : MonoBehaviour
             Debug.LogError($"Last character '{lastCharacter}' is not a number!");
         }
 
+        if (currentEmail != null)
+        {
+            if (currentEmail.Completed == false)
+            {
+                DisplayEmail(number);
+                return; // if not selected as spam or not, dont remove it from the list...
+            }
+            if (emails[number] != currentEmail)
+            {
+                currentEmailButton.gameObject.SetActive(false);
+            }
+        }
+
+
+        currentEmailButton = clickedObject.GetComponent<Button>();
+        
+
+        if (currentEmail != null && emails[number] != currentEmail)
+        {
+            Vector2 size = emailListPanel.sizeDelta;
+            size.y -= emailHeight;
+            emailListPanel.sizeDelta = size;
+            choices.SetButtons(true);
+            choices.emailMark.text = "";
+        }
+
+        if (currentEmail == null)
+        {
+            choices.SetButtons(true);
+        }
+
+
+
         DisplayEmail(number);
+        
 
     }
     public void DisplayEmail(int emailNo)
@@ -83,7 +100,6 @@ public class EmailUIManager : MonoBehaviour
         Debug.Log("Generating Email");
         Email email = emailGenerator.GetEmail(emailNo);
         if (email == null) return; 
-
         senderText.text = $"From: {email.Sender}";
         subjectText.text = $"Subject: {email.Title}";
         bodyText.text = email.Body;
@@ -99,6 +115,7 @@ public class EmailUIManager : MonoBehaviour
         }
 
         HighlightCurrentEmail(email.Title);
+        
     }
 
     public void HighlightCurrentEmail(string emailTitle)

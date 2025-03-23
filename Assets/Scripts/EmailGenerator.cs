@@ -25,6 +25,7 @@ public class EmailGenerator : MonoBehaviour
                 "security@paypa1-support.com",
                 profilePictures[0],
                 true,
+                false,
                 false
             ),
 
@@ -34,6 +35,7 @@ public class EmailGenerator : MonoBehaviour
                 "rewards@amaz0n-prizes.com",
                 profilePictures[1],
                 true,
+                false,
                 false
             ),
 
@@ -43,14 +45,16 @@ public class EmailGenerator : MonoBehaviour
                 "support@microsoft-secure.com",
                 profilePictures[2],
                 true,
+                false,
                 false
             ),
 
             new Email(
                 "Meeting Reminder: Project Update",
-                "Hi Team,\n\nThis is a reminder for our scheduled project update meeting at 2:00 PM. Please ensure you send me over a copy of the financial report by 1:00 PM.\n\nThanks,\nManagement Team\nOur Company",
+                "Hi Team,\n\nThis is a reminder for our scheduled project update meeting today. Please ensure you send me over a copy of the financial report before then and attend this meeting.\n\nThanks,\nManagement Team\nOur Company",
                 "management@company.com",
                 profilePictures[3],
+                false,
                 false,
                 false
             ),
@@ -61,6 +65,7 @@ public class EmailGenerator : MonoBehaviour
                 "support@nexflix.com",
                 profilePictures[4],
                 true,
+                false,
                 false
             ),
             
@@ -70,16 +75,18 @@ public class EmailGenerator : MonoBehaviour
                 "hr_payroll@company.com",
                 profilePictures[5],
                 false,
+                false,
                 false
             ),
             
             new Email(
                 "Company Credit Card Expiry!",
                 "Hello, valued Employee!\n\nThis is a reminder that your Company Credit Card is due to EXPIRE in the next 7 days.\n\nTo prevent the card from expiring, follow this link. <u><color=#00AEFF>http://companycreditcrd.com/expiry</color></u>\n\nRegards,\n\nCredit Card Company",
-                "hr_payroll@company.com",
+                "hr_payroll@compony.com",
                 profilePictures[6],
+                true,
                 false,
-                true
+                false
             ),
 
         };

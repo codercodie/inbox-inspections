@@ -7,10 +7,11 @@ public class Email
     public string Sender { get; private set; }
     public Sprite ProfilePicture { get; private set; }
     public bool Scam { get; private set; }
-
     public bool Read { get; set; }
 
-    public Email(string title, string body, string sender, Sprite profilePicture, bool scam, bool read)
+    public bool Completed { get; set; }
+
+    public Email(string title, string body, string sender, Sprite profilePicture, bool scam, bool read, bool completed)
     {
         Title = title;
         Body = body;
@@ -18,5 +19,6 @@ public class Email
         ProfilePicture = profilePicture;
         Scam = scam;
         Read = read;
+        Completed = completed;
     }
 }
