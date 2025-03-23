@@ -21,7 +21,7 @@ public class EmailGenerator : MonoBehaviour
         {
             new Email(
                 "Urgent! Your Account Has Been Suspended!",
-                "Dear Valued Customer,\n\nWe have detected suspicious activity on your account and have temporarily suspended access. Click the secure verification link below to verify your account before it is permanently closed:\n\n<u><color=#0000FF>http://paypal-security-verification.com/login</color></u>\n\nFailure to act will result in permanent deactivation of your account.\n\nThank you,\nPayPal Security Team",
+                "Dear Valued Customer,\n\nWe have detected suspicious activity on your account and have temporarily suspended access. Click the secure verification link below to verify your account before it is permanently closed:\n\n<u><color=#00AEFF>http://paypal-security-verification.com/login</color></u>\n\nFailure to act will result in permanent deactivation of your account.\n\nThank you,\nPayPal Security Team",
                 "security@paypa1-support.com",
                 profilePictures[0],
                 true,
@@ -30,7 +30,7 @@ public class EmailGenerator : MonoBehaviour
 
             new Email(
                 "Congratulations! You’ve Won a £50 Gift Card!",
-                "Dear Customer,\n\nYou have been selected as the lucky winner of a £50 Amazon Gift Card! To claim your reward, simply click the link below.\n\n<u><color=#0000FF>http://amazon-gift-prize.com/claim</color></u>\n\nOffer expires in 48hrs!\n\nBest,\nAmazon Rewards Team",
+                "Dear Customer,\n\nYou have been selected as the lucky winner of a £50 Amazon Gift Card! To claim your reward, simply click the link below.\n\n<u><color=#00AEFF>http://amazon-gift-prize.com/claim</color></u>\n\nOffer expires in 48hrs!\n\nBest,\nAmazon Rewards Team",
                 "rewards@amaz0n-prizes.com",
                 profilePictures[1],
                 true,
@@ -39,7 +39,7 @@ public class EmailGenerator : MonoBehaviour
 
             new Email(
                 "Security Alert: Unauthorized Login Attempt!",
-                "Hello,\n\nWe detected an unauthorized login attempt on your Microsoft account. If this wasn't you, please secure your account immediately.\n\nhttp://microsoft-account-security.com/reset\n\nBest,\n\nMicrosoft Security Team",
+                "Hello,\n\nWe detected an unauthorized login attempt on your Microsoft account. If this wasn't you, please secure your account immediately.\n\n <u><color=#00AEFF>http://microsoft-account-security.com/reset</color></u>\n\nBest,\n\nMicrosoft Security Team",
                 "support@microsoft-secure.com",
                 profilePictures[2],
                 true,
@@ -57,7 +57,7 @@ public class EmailGenerator : MonoBehaviour
 
             new Email(
                 "Your Monthly Subscription Receipt",
-                "Hi,\n\nThank you for your payment of £9.99 for your streaming service subscription.\n\nIf you did not authorize this payment, contact us immediately <u><color=#0000FF>http://nexflix.com/support</color></u>\n\nBest,\n\nCustomer Support Team\nNexflix",
+                "Hi,\n\nThank you for your payment of £9.99 for your streaming service subscription.\n\nIf you did not authorize this payment, contact us immediately <u><color=#00AEFF>http://nexflix.com/support</color></u>\n\nBest,\n\nCustomer Support Team\nNexflix",
                 "support@nexflix.com",
                 profilePictures[4],
                 true,
@@ -66,7 +66,7 @@ public class EmailGenerator : MonoBehaviour
             
             new Email(
                 "Timesheet Reminder!",
-                "Hello,\n\nThis is a reminder to complete your weekly timesheet.\n\n<u><color=#0000FF>http://companyportal.com/timesheet</color></u>\n\nBest,\n\nHR Team\nCompany",
+                "Hello,\n\nThis is a reminder to complete your weekly timesheet.\n\n<u><color=#00AEFF>http://companyportal.com/timesheet</color></u>\n\nBest,\n\nHR Team\nCompany",
                 "hr_payroll@company.com",
                 profilePictures[5],
                 false,
@@ -75,7 +75,7 @@ public class EmailGenerator : MonoBehaviour
             
             new Email(
                 "Company Credit Card Expiry!",
-                "Hello, valued Employee!\n\nThis is a reminder that your Company Credit Card is due to EXPIRE in the next 7 days.\n\nTo prevent the card from expiring, follow this link.<u><color=#0000FF>http://companycreditcrd.com/expiry</color></u>\n\nRegards,\n\nCredit Card Company",
+                "Hello, valued Employee!\n\nThis is a reminder that your Company Credit Card is due to EXPIRE in the next 7 days.\n\nTo prevent the card from expiring, follow this link. <u><color=#00AEFF>http://companycreditcrd.com/expiry</color></u>\n\nRegards,\n\nCredit Card Company",
                 "hr_payroll@company.com",
                 profilePictures[6],
                 false,
@@ -104,10 +104,8 @@ public class EmailGenerator : MonoBehaviour
     }
 
     public Email GetEmail(int emailNumber)
-    {
-        int number = emailNumber - 1;
-
-        return emailList[number];
+    { 
+        return emailList[emailNumber];
     }
 
     public List<Email> GetEmailQueue()

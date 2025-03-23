@@ -10,13 +10,17 @@ public class EmailUIManager : MonoBehaviour
     public TextMeshProUGUI subjectText;
     public TextMeshProUGUI bodyText;
     public Email currentEmail;
+    public Button currentEmailButton;
     public Image profilePicture;
+    public Choices choices;
     [SerializeField]
     private EmailGenerator emailGenerator;
     public List<Email> emails;
     public List<Button> emailbgs;
     public List<TextMeshProUGUI> senderTexts, subjectTexts;
     public List<Image> profileImages;
+    public RectTransform emailListPanel;
+    float emailHeight = 82.91f;
 
     private void Start()
     {
@@ -40,11 +44,16 @@ public class EmailUIManager : MonoBehaviour
 
     public void ShowFirstEmail()
     {
-        DisplayEmail(1);
+        DisplayEmail(0);
     }
 
     public void ChangeEmail()
     {
+       choices.SetButtons(true);
+        currentEmailButton.gameObject.SetActive(false);
+        Vector2 size = emailListPanel.sizeDelta;
+        size.y -= emailHeight;
+        emailListPanel.sizeDelta = size;
         GameObject clickedObject = EventSystem.current.currentSelectedGameObject;
         if (clickedObject == null)
         {
@@ -53,7 +62,7 @@ public class EmailUIManager : MonoBehaviour
         }
         string objectName = clickedObject.name;
         Debug.Log("Game Object Clicked: " + objectName);
-
+        currentEmailButton = clickedObject.GetComponent<Button>();
         char lastCharacter = objectName[objectName.Length - 1];
         int number = 0;
         if (char.IsDigit(lastCharacter))
@@ -79,6 +88,7 @@ public class EmailUIManager : MonoBehaviour
         subjectText.text = $"Subject: {email.Title}";
         bodyText.text = email.Body;
         currentEmail = email;
+        currentEmailButton = emailbgs[emailNo];
 
         email.Read = true;
 
@@ -104,7 +114,6 @@ public class EmailUIManager : MonoBehaviour
             }
         }
     }
-    
     public void UnHighlightAllEmails()
     {
         Color unhighlightColor;
