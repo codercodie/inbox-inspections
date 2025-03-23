@@ -62,7 +62,25 @@ public class EmailGenerator : MonoBehaviour
                 profilePictures[4],
                 true,
                 false
-            )
+            ),
+            
+            new Email(
+                "Timesheet Reminder!",
+                "Hello,\n\nThis is a reminder to complete your weekly timesheet.\n\n<u><color=#0000FF>http://companyportal.com/timesheet</color></u>\n\nBest,\n\nHR Team\nCompany",
+                "hr_payroll@company.com",
+                profilePictures[5],
+                false,
+                false
+            ),
+            
+            new Email(
+                "Company Credit Card Expiry!",
+                "Hello, valued Employee!\n\nThis is a reminder that your Company Credit Card is due to EXPIRE in the next 7 days.\n\nTo prevent the card from expiring, follow this link.<u><color=#0000FF>http://companycreditcrd.com/expiry</color></u>\n\nRegards,\n\nCredit Card Company",
+                "hr_payroll@company.com",
+                profilePictures[6],
+                false,
+                true
+            ),
 
         };
 
