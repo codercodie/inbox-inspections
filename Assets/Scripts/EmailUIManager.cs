@@ -2,6 +2,7 @@
 using TMPro;
 using UnityEngine.UI;
 using System.Collections.Generic;
+using UnityEngine.EventSystems;
 
 public class EmailUIManager : MonoBehaviour
 {
@@ -12,9 +13,10 @@ public class EmailUIManager : MonoBehaviour
     public Image profilePicture;
     [SerializeField]
     private EmailGenerator emailGenerator;
-    public TextMeshProUGUI email1Sender, email1Subject, email2Sender, email2Subject, email3Sender, email3Subject, email4Sender, email4Subject, email5Sender, email5Subject;
-    public Image email1bg, email2bg, email3bg, email4bg, email5bg;
     public List<Email> emails;
+    public List<Button> emailbgs;
+    public List<TextMeshProUGUI> senderTexts, subjectTexts;
+    public List<Image> profileImages;
 
     private void Start()
     {
@@ -23,19 +25,17 @@ public class EmailUIManager : MonoBehaviour
         ShowFirstEmail();
     }
 
-    public void DisplayEmailList() {
+    public void DisplayEmailList()
+    {
         emails = emailGenerator.GetEmailQueue();
         Debug.Log("length of emails: " + emails.Count);
-        email1Sender.text = emails[0].Sender;
-        email1Subject.text = emails[0].Title;
-        email2Sender.text = emails[1].Sender;
-        email2Subject.text = emails[1].Title;
-        email3Sender.text = emails[2].Sender;
-        email3Subject.text = emails[2].Title;
-        email4Sender.text = emails[3].Sender;
-        email4Subject.text = emails[3].Title;
-        email5Sender.text = emails[4].Sender;
-        email5Subject.text = emails[4].Title;
+
+        for (int i = 0; i < emails.Count && i < senderTexts.Count && i < subjectTexts.Count; i++)
+        {
+            senderTexts[i].text = emails[i].Sender;
+            subjectTexts[i].text = emails[i].Title;
+            profileImages[i].sprite = emails[i].ProfilePicture;
+        }
     }
 
     public void ShowFirstEmail()
@@ -45,7 +45,15 @@ public class EmailUIManager : MonoBehaviour
 
     public void ChangeEmail()
     {
-        string objectName = gameObject.name;
+        GameObject clickedObject = EventSystem.current.currentSelectedGameObject;
+        if (clickedObject == null)
+        {
+            Debug.LogError("No UI object was clicked!");
+            return;
+        }
+        string objectName = clickedObject.name;
+        Debug.Log("Game Object Clicked: " + objectName);
+
         char lastCharacter = objectName[objectName.Length - 1];
         int number = 0;
         if (char.IsDigit(lastCharacter))
@@ -86,38 +94,37 @@ public class EmailUIManager : MonoBehaviour
     public void HighlightCurrentEmail(string emailTitle)
     {
         UnHighlightAllEmails();
-        switch (emailTitle)
+
+        for (int i = 0; i < subjectTexts.Count; i++)
         {
-            case var title when title == email1Subject.text:
-                email1bg.color = Color.gray;
+            if (subjectTexts[i].text == emailTitle)
+            {
+                emailbgs[i].GetComponent<Image>().color = Color.gray;
                 break;
-
-            case var title when title == email2Subject.text:
-                email2bg.color = Color.gray;
-                break;
-
-            case var title when title == email3Subject.text:
-                email3bg.color = Color.gray;
-                break;
-
-            case var title when title == email4Subject.text:
-                email4bg.color = Color.gray;
-                break;
-
-            case var title when title == email5Subject.text:
-                email5bg.color = Color.gray;
-                break;
+            }
+        }
+    }
+    
+    public void UnHighlightAllEmails()
+    {
+        Color unhighlightColor;
+        if (ColorUtility.TryParseHtmlString("#28271E", out unhighlightColor))
+        {
+            foreach (Button emailbg in emailbgs)
+            {
+                emailbg.GetComponent<Image>().color = unhighlightColor;
+            }
+        }
+        else
+        {
+            Debug.LogError("Invalid hex color for unhighlighted state. Using Color.black");
+            foreach (Button emailbg in emailbgs)
+            {
+                emailbg.GetComponent<Image>().color = Color.black;
+            }
         }
     }
 
-    public void UnHighlightAllEmails()
-    {
-        email1bg.color = Color.black;
-        email2bg.color = Color.black;
-        email3bg.color = Color.black;
-        email4bg.color = Color.black;
-        email5bg.color = Color.black;
-    }
 
     public Email GetCurrentEmail()
     {
