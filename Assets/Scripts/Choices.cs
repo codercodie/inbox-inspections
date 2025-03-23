@@ -1,5 +1,7 @@
 ﻿using UnityEngine;
 using TMPro;
+using UnityEngine.UI;
+using System.Collections.Generic;
 
 public class Choices : MonoBehaviour
 {
@@ -9,15 +11,16 @@ public class Choices : MonoBehaviour
     private int incorrectChoices = 0;
     private int totalChoices = 0;
 
-    public TextMeshProUGUI correct;
-    public TextMeshProUGUI incorrect;
+    [SerializeField]
+    public List<Button> buttons;
 
     public void Start()
     {
         correctChoices = 0;
         incorrectChoices = 0;
-        correct.text = "Correct: " + correctChoices;
-        incorrect.text = "Incorrect: " + incorrectChoices;
+
+        SetButtons(true);
+       
     }
     public void SpamOnClick()
     {
@@ -38,12 +41,23 @@ public class Choices : MonoBehaviour
         if (playerThinksSpam == currentEmail.Scam)
         {
             correctChoices++;
-            correct.text = "Correct: " + correctChoices;
         }
         else
         {
             incorrectChoices++;
-            incorrect.text = "Incorrect: " + incorrectChoices;
+        }
+
+        SetButtons(false); // disable after choice selected
+
+    }
+
+    public void SetButtons(bool boobar)
+    {
+        Debug.Log("Setting buttons to : " + boobar);
+        foreach (Button button in buttons)
+        {
+            Debug.Log("Disabling button: " + button.name);
+            button.interactable = boobar;
         }
     }
 
